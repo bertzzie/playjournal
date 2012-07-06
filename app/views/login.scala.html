@@ -1,0 +1,35 @@
+@(form: Form[(String, String)])(implicit request: play.api.mvc.RequestHeader)
+
+@main("Login", "login") {
+	<div class="span6">
+		<div class="hero-unit">
+			<h1>LOGIN WOI</h1>
+		</div>
+	</div>
+	@helper.form(routes.Authentication.authenticate, 'class -> "form-horizontal span4"){
+	<fieldset>
+	<legend>Your Login Information</legend>
+	@form.globalError.map { error =>
+		<div class="alert alert-error">
+			@error.message
+		</div>
+	}
+	<div class="control-group">
+		<label class="control-label" for="email">Email</label>
+		<div class="controls">
+			<input type="email" class="input-large" id="email" name="email" placeholder="email">
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="password">Password</label>
+		<div class="controls">
+			<input type="password" class="input-large" id="password" name="password" placeholder="password">
+		</div>
+	</div>
+	<div class="form-actions">
+		<button type="submit" class="btn btn-primary">Login</button>
+		<button type="reset" class="btn">Clear</button>
+	</div>
+	</fieldset>
+	}
+}

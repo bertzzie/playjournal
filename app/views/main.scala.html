@@ -1,0 +1,37 @@
+@(title: String, section: String = "home")(content: Html)(implicit request: play.api.mvc.RequestHeader)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("bootstrap/css/bootstrap.min.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    </head>
+    <body>
+    	<div class="container">
+    		<div class="navbar">
+    			<div class="navbar-inner">
+    				<div class="container">
+    					<a class="brand" href="@routes.Application.index">PlayJournal</a>
+    					<ul class="nav">
+    						<li @{if(section.equals("home")) "class=active"}><a href="">Home</a></li>
+    					</ul>
+    					
+    					<ul class="nav pull-right">
+    						@if(request.session.get("email").exists(_ => true)) {
+    							<li><a href="#">Welcome, @request.session.get("name")</a></li>
+    							<li class="divider-vertical"></li>
+    							<li><a href="@routes.Authentication.logout">Logout</a></li>
+    						} else {
+	    						<li @{if(section.equals("login")) "class=active"}><a href="@routes.Authentication.login">Login</a></li>
+    						}
+						</ul>
+    				</div>
+    			</div>
+    		</div>
+            @content
+		</div>
+    </body>
+</html>
