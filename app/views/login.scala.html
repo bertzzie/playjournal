@@ -1,10 +1,16 @@
-@(loginForm: Form[(String, String)])(implicit request: play.api.mvc.RequestHeader)
+@(loginForm: Form[(String, String)])(implicit request: play.api.mvc.RequestHeader, flash: Flash)
 
 @import helper._
 
 @implicitField = @{ FieldConstructor(bootstrapInput.f) }
 
 @main("Login", "login") {
+    @if(flash.get("registration").exists(_ => true)){
+    	<div class="alert alert-info">
+    		@flash.get("registration")
+    	</div>
+    }
+
 	<div class="span5">
 		<a href="#" class="thumbnail">
 			<img src="http://placehold.it/450x300">
@@ -25,7 +31,7 @@
 	@inputText(loginForm("email"))
 	@inputPassword(loginForm("password"))
 	
-	<div class="loginForm-actions">
+	<div class="form-actions">
 		<button type="submit" class="btn btn-primary">Login</button>
 		<button type="reset" class="btn">Clear</button>
 	</div>

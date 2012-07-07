@@ -23,7 +23,18 @@ object Authentication extends Controller {
                     "email" -> email.verifying(nonEmpty),
                     "password" -> nonEmptyText,
                     "name" -> nonEmptyText
-            )
+            ) verifying ("Email already used. Please check your email.", result => result match {
+                case (email, password, name) => {
+                	var result = true
+                    try {
+                    	Users.create(Users(email, password, name))
+                    } catch {
+                        case e => result = false
+                    }
+                    
+                    result
+                }
+            })
     )
     
     def login = Action { implicit request =>
@@ -36,6 +47,13 @@ object Authentication extends Controller {
     
     def signup = Action { implicit request =>
         Ok(views.html.signup(signUpForm))
+    }
+    
+    def registration = Action { implicit request =>
+        signUpForm.bindFromRequest.fold(
+                formWithErrors => BadRequest(views.html.signup(formWithErrors)),
+                newUser => Redirect(routes.Authentication.login).flashing("registration" -> "Your account have been created. You can now login and start using PlayJournal.")
+        )
     }
     
     def authenticate = Action { implicit request =>
