@@ -27,7 +27,7 @@ object Authentication extends Controller {
                 case (email, password, name) => {
                 	var result = true
                     try {
-                    	Users.create(Users(email, password, name))
+                    	Users.create(Users(email, password, name, Privilege.standard))
                     } catch {
                         case e => result = false
                     }
@@ -59,7 +59,19 @@ object Authentication extends Controller {
     def authenticate = Action { implicit request =>
         loginForm.bindFromRequest.fold(
                 formWithErrors => BadRequest(views.html.login(formWithErrors)),
-                user => Redirect(routes.Application.index).withSession("email" -> user._1, "name" -> Users.getName(user._1))
+                user => {
+                    var datas: Users = Users.findByEmail(user._1) match {
+                        case Some(u) => u
+                        case None => throw new Exception("FATAL ERROR: Authentication get the wrong email")
+                    }
+                    
+                    Redirect(routes.Application.index).withSession(
+                            "id" -> datas.id.toString, 
+                            "email" -> datas.email, 
+                            "name" -> datas.name,
+                            "privilege" -> datas.privilege.toString
+                    )
+                }
         )
     }
 }

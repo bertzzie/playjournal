@@ -6,15 +6,16 @@ import anorm.SqlParser._
 import org.apache.commons.codec.digest.DigestUtils._
 import play.api.Play.current
 
-case class Users(email: String, password: String, name: String, id: Long = 0)
+case class Users(email: String, password: String, name: String, privilege: Long, id: Long = 0)
 
 object Users {
     val simple = {
         get[String]("users.email") ~
         get[String]("users.password") ~
         get[String]("users.name") ~
+        get[Long]("users.privilege") ~
         get[Long]("users.id") map {
-            case email~password~name~id => Users(email, password, name, id)
+            case email~password~name~privilege~id => Users(email, password, name, privilege, id)
         }
     }
     
@@ -48,10 +49,11 @@ object Users {
     
     def create(user: Users) {
         DB.withConnection { implicit connection =>
-            SQL("INSERT INTO users (email, password, name) VALUES ({email}, {password}, {name})").on(
+            SQL("INSERT INTO users (email, password, name, privilege) VALUES ({email}, {password}, {name}, {privilege})").on(
                     'email -> user.email,
                     'password -> passwordHash(user.password, user.email),
-                    'name -> user.name
+                    'name -> user.name,
+                    'privilege -> user.privilege
             ).executeUpdate()
         }
     }

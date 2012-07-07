@@ -15,6 +15,18 @@ object Privilege {
         }
     }
     
+    // because we can't set it as var / val. it's possible to access this by Privilege.admin anyway.
+    def admin(): Long = getId("admin")
+    def standard(): Long = getId("standard")
+    
+    def getId(description: String): Long = {
+        DB.withConnection{ implicit connection =>
+            SQL("SELECT p.id FROM privilege p WHERE p.description = {description}")
+            	.on('description -> description)
+            	.as(scalar[Long].single)
+        }
+    }
+    
     def findAll(): Seq[Privilege] = {
         DB.withConnection{ implicit connection =>
             SQL("SELECT * FROM privilege").as(simple *)
