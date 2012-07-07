@@ -1,6 +1,6 @@
 // @SOURCE:C:/Users/bert/Desktop/projects/playjournal/conf/routes
-// @HASH:ef44bd63579b4a56e70035382d708b98a8a1d9a5
-// @DATE:Fri Jul 06 12:27:33 ICT 2012
+// @HASH:cd779aec4068762e357382069456a2daeab61ea9
+// @DATE:Fri Jul 06 14:49:29 ICT 2012
 
 import play.core._
 import play.core.Router._
@@ -12,7 +12,8 @@ import play.api.mvc._
 import Router.queryString
 
 
-// @LINE:15
+// @LINE:17
+// @LINE:14
 // @LINE:12
 // @LINE:10
 // @LINE:9
@@ -36,13 +37,13 @@ def index() = {
 }
                             
 
-// @LINE:15
+// @LINE:17
 class ReverseAssets {
     
 
 
  
-// @LINE:15
+// @LINE:17
 def at(file:String) = {
    Call("GET", "/assets/" + implicitly[PathBindable[String]].unbind("file", file))
 }
@@ -53,6 +54,7 @@ def at(file:String) = {
 }
                             
 
+// @LINE:14
 // @LINE:12
 // @LINE:10
 // @LINE:9
@@ -64,6 +66,12 @@ class ReverseAuthentication {
 // @LINE:10
 def authenticate() = {
    Call("POST", "/login")
+}
+                                                        
+ 
+// @LINE:14
+def signup() = {
+   Call("GET", "/signup")
 }
                                                         
  
@@ -87,7 +95,8 @@ def login() = {
                     
 
 
-// @LINE:15
+// @LINE:17
+// @LINE:14
 // @LINE:12
 // @LINE:10
 // @LINE:9
@@ -116,13 +125,13 @@ def index = JavascriptReverseRoute(
 }
                             
 
-// @LINE:15
+// @LINE:17
 class ReverseAssets {
     
 
 
  
-// @LINE:15
+// @LINE:17
 def at = JavascriptReverseRoute(
    "controllers.Assets.at",
    """
@@ -138,6 +147,7 @@ def at = JavascriptReverseRoute(
 }
                             
 
+// @LINE:14
 // @LINE:12
 // @LINE:10
 // @LINE:9
@@ -152,6 +162,17 @@ def authenticate = JavascriptReverseRoute(
    """
       function() {
       return _wA({method:"POST", url:"/login"})
+      }
+   """
+)
+                                                        
+ 
+// @LINE:14
+def signup = JavascriptReverseRoute(
+   "controllers.Authentication.signup",
+   """
+      function() {
+      return _wA({method:"GET", url:"/signup"})
       }
    """
 )
@@ -187,7 +208,8 @@ def login = JavascriptReverseRoute(
                     
 
 
-// @LINE:15
+// @LINE:17
+// @LINE:14
 // @LINE:12
 // @LINE:10
 // @LINE:9
@@ -211,13 +233,13 @@ def index() = new play.api.mvc.HandlerRef(
 }
                             
 
-// @LINE:15
+// @LINE:17
 class ReverseAssets {
     
 
 
  
-// @LINE:15
+// @LINE:17
 def at(path:String, file:String) = new play.api.mvc.HandlerRef(
    controllers.Assets.at(path, file), HandlerDef(this, "controllers.Assets", "at", Seq(classOf[String], classOf[String]))
 )
@@ -228,6 +250,7 @@ def at(path:String, file:String) = new play.api.mvc.HandlerRef(
 }
                             
 
+// @LINE:14
 // @LINE:12
 // @LINE:10
 // @LINE:9
@@ -239,6 +262,12 @@ class ReverseAuthentication {
 // @LINE:10
 def authenticate() = new play.api.mvc.HandlerRef(
    controllers.Authentication.authenticate(), HandlerDef(this, "controllers.Authentication", "authenticate", Seq())
+)
+                              
+ 
+// @LINE:14
+def signup() = new play.api.mvc.HandlerRef(
+   controllers.Authentication.signup(), HandlerDef(this, "controllers.Authentication", "signup", Seq())
 )
                               
  

@@ -1,6 +1,6 @@
 // @SOURCE:C:/Users/bert/Desktop/projects/playjournal/conf/routes
-// @HASH:ef44bd63579b4a56e70035382d708b98a8a1d9a5
-// @DATE:Fri Jul 06 12:27:33 ICT 2012
+// @HASH:cd779aec4068762e357382069456a2daeab61ea9
+// @DATE:Fri Jul 06 14:49:29 ICT 2012
 
 import play.core._
 import play.core.Router._
@@ -30,10 +30,14 @@ val controllers_Authentication_authenticate2 = Route("POST", PathPattern(List(St
 val controllers_Authentication_logout3 = Route("GET", PathPattern(List(StaticPart("/logout"))))
                     
 
-// @LINE:15
-val controllers_Assets_at4 = Route("GET", PathPattern(List(StaticPart("/assets/"),DynamicPart("file", """.+"""))))
+// @LINE:14
+val controllers_Authentication_signup4 = Route("GET", PathPattern(List(StaticPart("/signup"))))
                     
-def documentation = List(("""GET""","""/""","""controllers.Application.index"""),("""GET""","""/login""","""controllers.Authentication.login"""),("""POST""","""/login""","""controllers.Authentication.authenticate"""),("""GET""","""/logout""","""controllers.Authentication.logout"""),("""GET""","""/assets/$file<.+>""","""controllers.Assets.at(path:String = "/public", file:String)"""))
+
+// @LINE:17
+val controllers_Assets_at5 = Route("GET", PathPattern(List(StaticPart("/assets/"),DynamicPart("file", """.+"""))))
+                    
+def documentation = List(("""GET""","""/""","""controllers.Application.index"""),("""GET""","""/login""","""controllers.Authentication.login"""),("""POST""","""/login""","""controllers.Authentication.authenticate"""),("""GET""","""/logout""","""controllers.Authentication.logout"""),("""GET""","""/signup""","""controllers.Authentication.signup"""),("""GET""","""/assets/$file<.+>""","""controllers.Assets.at(path:String = "/public", file:String)"""))
              
     
 def routes:PartialFunction[RequestHeader,Handler] = {        
@@ -70,8 +74,16 @@ case controllers_Authentication_logout3(params) => {
 }
                     
 
-// @LINE:15
-case controllers_Assets_at4(params) => {
+// @LINE:14
+case controllers_Authentication_signup4(params) => {
+   call { 
+        invokeHandler(_root_.controllers.Authentication.signup, HandlerDef(this, "controllers.Authentication", "signup", Nil))
+   }
+}
+                    
+
+// @LINE:17
+case controllers_Assets_at5(params) => {
    call(Param[String]("path", Right("/public")), params.fromPath[String]("file", None)) { (path, file) =>
         invokeHandler(_root_.controllers.Assets.at(path, file), HandlerDef(this, "controllers.Assets", "at", Seq(classOf[String], classOf[String])))
    }

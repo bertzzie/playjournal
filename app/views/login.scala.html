@@ -1,25 +1,32 @@
 @(form: Form[(String, String)])(implicit request: play.api.mvc.RequestHeader)
 
+@implicitField = @{FieldConstructor(bootstrapInput.render)}
+
 @main("Login", "login") {
 	<div class="span6">
-		<div class="hero-unit">
-			<h1>LOGIN WOI</h1>
-		</div>
+		<a href="#" class="thumbnail">
+			<img src="http://placehold.it/450x300">
+		</a>
 	</div>
 	@helper.form(routes.Authentication.authenticate, 'class -> "form-horizontal span4"){
 	<fieldset>
 	<legend>Your Login Information</legend>
-	@form.globalError.map { error =>
+	
+	@if(form.hasGlobalErrors){
 		<div class="alert alert-error">
-			@error.message
+			@form.globalErrors.map { error =>
+				<strong>Error: </strong> @error.message <br>
+			}
 		</div>
 	}
+	
 	<div class="control-group">
 		<label class="control-label" for="email">Email</label>
 		<div class="controls">
 			<input type="email" class="input-large" id="email" name="email" placeholder="email">
 		</div>
 	</div>
+	@inputText(form("email"))
 	<div class="control-group">
 		<label class="control-label" for="password">Password</label>
 		<div class="controls">

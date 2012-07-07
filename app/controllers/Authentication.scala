@@ -18,12 +18,24 @@ object Authentication extends Controller {
             })
     )
     
+    val signUpForm = Form(
+            tuple(
+                    "email" -> email.verifying(nonEmpty),
+                    "password" -> nonEmptyText,
+                    "name" -> nonEmptyText
+            )
+    )
+    
     def login = Action { implicit request =>
         Ok(views.html.login(loginForm))
     }
     
     def logout = Action {
         Redirect(routes.Application.index).withNewSession.flashing("logoutSuccess" -> "Thank you for using PlayJournal!")
+    }
+    
+    def signup = Action { implicit request =>
+        Ok(views.html.signup(signUpForm))
     }
     
     def authenticate = Action { implicit request =>

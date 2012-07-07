@@ -1,0 +1,11 @@
+@(elements: helper.FieldElements)
+
+<div class="control-group">
+	<label class="control-label" for="email">@elements.label</label>
+	<div class="controls">
+		@if(elements.hasErrors){
+			<div class="alert alert-block">Error: @elements.errors</div>
+		}
+		@elements.input
+	</div>
+</div>

@@ -1,0 +1,9 @@
+@(form: Form[(String, String, String)])(implicit request: play.api.mvc.RequestHeader)
+
+@main("Sign Up", "signup"){
+	<div class="span4 offset4">
+		@helper.form(routes.Authentication.authenticate, 'class -> "form-horizontal"){
+			@helper.inputText(form("email"))
+		}
+	</div>
+}
