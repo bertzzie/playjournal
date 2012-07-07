@@ -1,39 +1,31 @@
-@(form: Form[(String, String)])(implicit request: play.api.mvc.RequestHeader)
+@(loginForm: Form[(String, String)])(implicit request: play.api.mvc.RequestHeader)
 
-@implicitField = @{FieldConstructor(bootstrapInput.render)}
+@import helper._
+
+@implicitField = @{ FieldConstructor(bootstrapInput.f) }
 
 @main("Login", "login") {
-	<div class="span6">
+	<div class="span5">
 		<a href="#" class="thumbnail">
 			<img src="http://placehold.it/450x300">
 		</a>
 	</div>
-	@helper.form(routes.Authentication.authenticate, 'class -> "form-horizontal span4"){
+	@helper.form(routes.Authentication.authenticate, 'class -> "loginForm-horizontal span6"){
 	<fieldset>
 	<legend>Your Login Information</legend>
 	
-	@if(form.hasGlobalErrors){
+	@if(loginForm.hasGlobalErrors){
 		<div class="alert alert-error">
-			@form.globalErrors.map { error =>
+			@loginForm.globalErrors.map { error =>
 				<strong>Error: </strong> @error.message <br>
 			}
 		</div>
 	}
 	
-	<div class="control-group">
-		<label class="control-label" for="email">Email</label>
-		<div class="controls">
-			<input type="email" class="input-large" id="email" name="email" placeholder="email">
-		</div>
-	</div>
-	@inputText(form("email"))
-	<div class="control-group">
-		<label class="control-label" for="password">Password</label>
-		<div class="controls">
-			<input type="password" class="input-large" id="password" name="password" placeholder="password">
-		</div>
-	</div>
-	<div class="form-actions">
+	@inputText(loginForm("email"))
+	@inputPassword(loginForm("password"))
+	
+	<div class="loginForm-actions">
 		<button type="submit" class="btn btn-primary">Login</button>
 		<button type="reset" class="btn">Clear</button>
 	</div>

@@ -16,67 +16,59 @@ import views.html._
 object login extends BaseScalaTemplate[play.api.templates.Html,Format[play.api.templates.Html]](play.api.templates.HtmlFormat) with play.api.templates.Template2[Form[scala.Tuple2[String, String]],play.api.mvc.RequestHeader,play.api.templates.Html] {
 
     /**/
-    def apply/*1.2*/(form: Form[(String, String)])(implicit request: play.api.mvc.RequestHeader):play.api.templates.Html = {
-        _display_ {
-implicit def /*3.2*/implicitField/*3.15*/ = {{FieldConstructor(bootstrapInput.render)}};
-Seq[Any](format.raw/*1.78*/("""
+    def apply/*1.2*/(loginForm: Form[(String, String)])(implicit request: play.api.mvc.RequestHeader):play.api.templates.Html = {
+        _display_ {import helper._
 
-"""),format.raw/*3.60*/("""
+implicit def /*5.2*/implicitField/*5.15*/ = {{ FieldConstructor(bootstrapInput.f) }};
+Seq[Any](format.raw/*1.83*/("""
 
-"""),_display_(Seq[Any](/*5.2*/main("Login", "login")/*5.24*/ {_display_(Seq[Any](format.raw/*5.26*/("""
-	<div class="span6">
+"""),format.raw/*4.1*/("""
+"""),format.raw/*5.57*/("""
+
+"""),_display_(Seq[Any](/*7.2*/main("Login", "login")/*7.24*/ {_display_(Seq[Any](format.raw/*7.26*/("""
+	<div class="span5">
 		<a href="#" class="thumbnail">
 			<img src="http://placehold.it/450x300">
 		</a>
 	</div>
-	"""),_display_(Seq[Any](/*11.3*/helper/*11.9*/.form(routes.Authentication.authenticate, 'class -> "form-horizontal span4")/*11.85*/{_display_(Seq[Any](format.raw/*11.86*/("""
+	"""),_display_(Seq[Any](/*13.3*/helper/*13.9*/.form(routes.Authentication.authenticate, 'class -> "loginForm-horizontal span6")/*13.90*/{_display_(Seq[Any](format.raw/*13.91*/("""
 	<fieldset>
 	<legend>Your Login Information</legend>
 	
-	"""),_display_(Seq[Any](/*15.3*/if(form.hasGlobalErrors)/*15.27*/{_display_(Seq[Any](format.raw/*15.28*/("""
+	"""),_display_(Seq[Any](/*17.3*/if(loginForm.hasGlobalErrors)/*17.32*/{_display_(Seq[Any](format.raw/*17.33*/("""
 		<div class="alert alert-error">
-			"""),_display_(Seq[Any](/*17.5*/form/*17.9*/.globalErrors.map/*17.26*/ { error =>_display_(Seq[Any](format.raw/*17.37*/("""
-				<strong>Error: </strong> """),_display_(Seq[Any](/*18.31*/error/*18.36*/.message)),format.raw/*18.44*/(""" <br>
-			""")))})),format.raw/*19.5*/("""
+			"""),_display_(Seq[Any](/*19.5*/loginForm/*19.14*/.globalErrors.map/*19.31*/ { error =>_display_(Seq[Any](format.raw/*19.42*/("""
+				<strong>Error: </strong> """),_display_(Seq[Any](/*20.31*/error/*20.36*/.message)),format.raw/*20.44*/(""" <br>
+			""")))})),format.raw/*21.5*/("""
 		</div>
-	""")))})),format.raw/*21.3*/("""
+	""")))})),format.raw/*23.3*/("""
 	
-	<div class="control-group">
-		<label class="control-label" for="email">Email</label>
-		<div class="controls">
-			<input type="email" class="input-large" id="email" name="email" placeholder="email">
-		</div>
-	</div>
-	"""),_display_(Seq[Any](/*29.3*/inputText(form("email")))),format.raw/*29.27*/("""
-	<div class="control-group">
-		<label class="control-label" for="password">Password</label>
-		<div class="controls">
-			<input type="password" class="input-large" id="password" name="password" placeholder="password">
-		</div>
-	</div>
-	<div class="form-actions">
+	"""),_display_(Seq[Any](/*25.3*/inputText(loginForm("email")))),format.raw/*25.32*/("""
+	"""),_display_(Seq[Any](/*26.3*/inputPassword(loginForm("password")))),format.raw/*26.39*/("""
+	
+	<div class="loginForm-actions">
 		<button type="submit" class="btn btn-primary">Login</button>
 		<button type="reset" class="btn">Clear</button>
 	</div>
 	</fieldset>
-	""")))})),format.raw/*41.3*/("""
+	""")))})),format.raw/*33.3*/("""
 """)))})))}
     }
     
-    def render(form:Form[scala.Tuple2[String, String]],request:play.api.mvc.RequestHeader) = apply(form)(request)
+    def render(loginForm:Form[scala.Tuple2[String, String]],request:play.api.mvc.RequestHeader) = apply(loginForm)(request)
     
-    def f:((Form[scala.Tuple2[String, String]]) => (play.api.mvc.RequestHeader) => play.api.templates.Html) = (form) => (request) => apply(form)(request)
+    def f:((Form[scala.Tuple2[String, String]]) => (play.api.mvc.RequestHeader) => play.api.templates.Html) = (loginForm) => (request) => apply(loginForm)(request)
     
     def ref = this
 
 }
                 /*
                     -- GENERATED --
-                    DATE: Fri Jul 06 16:12:40 ICT 2012
+                    DATE: Sat Jul 07 12:46:58 ICT 2012
                     SOURCE: C:/Users/bert/Desktop/projects/playjournal/app/views/login.scala.html
-                    HASH: c22fc6d011620cd5b84ab5d598c4a9a197ddad10
-                    MATRIX: 560->1|705->82|726->95|801->77|832->140|871->145|901->167|940->169|1096->290|1110->296|1195->372|1234->373|1331->435|1364->459|1403->460|1479->501|1491->505|1517->522|1566->533|1634->565|1648->570|1678->578|1720->589|1765->603|2029->832|2075->856|2517->1267
-                    LINES: 19->1|21->3|21->3|22->1|24->3|26->5|26->5|26->5|32->11|32->11|32->11|32->11|36->15|36->15|36->15|38->17|38->17|38->17|38->17|39->18|39->18|39->18|40->19|42->21|50->29|50->29|62->41
+                    HASH: 2d3ef7efa0425f519fcaf37652ede75ea443da1a
+                    MATRIX: 560->1|727->107|748->120|820->82|850->104|879->162|918->167|948->189|987->191|1143->312|1157->318|1247->399|1286->400|1383->462|1421->491|1460->492|1536->533|1554->542|1580->559|1629->570|1697->602|1711->607|1741->615|1783->626|1828->640|1870->647|1921->676|1960->680|2018->716|2228->895
+                    LINES: 19->1|22->5|22->5|23->1|25->4|26->5|28->7|28->7|28->7|34->13|34->13|34->13|34->13|38->17|38->17|38->17|40->19|40->19|40->19|40->19|41->20|41->20|41->20|42->21|44->23|46->25|46->25|47->26|47->26|54->33
                     -- GENERATED --
                 */
             
