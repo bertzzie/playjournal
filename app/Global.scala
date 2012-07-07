@@ -9,5 +9,12 @@ object Global extends GlobalSettings {
                     Users("bertzzie@gmail.com", "bertzzie", "Bertzzie")
             ) foreach Users.create
         }
+        
+        if(Privilege.findAll.isEmpty) {
+            Seq(
+                    Privilege(1, "admin"),
+                    Privilege(2, "standard")
+            ) foreach Privilege.create
+        }
     }
 }

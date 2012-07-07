@@ -1,4 +1,4 @@
-# Account schema
+# users schema
  
 # --- !Ups
 
