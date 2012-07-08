@@ -8,7 +8,7 @@ import play.api.data.validation.Constraints._
 
 import models._
 
-object Authentication extends Controller {
+object Authentication extends Controller with Security {
     val loginForm = Form(
             tuple(
                     "email" -> email.verifying(nonEmpty),
@@ -66,10 +66,10 @@ object Authentication extends Controller {
                     }
                     
                     Redirect(routes.Application.index).withSession(
-                            "id" -> datas.id.toString, 
-                            "email" -> datas.email, 
-                            "name" -> datas.name,
-                            "privilege" -> datas.privilege.toString
+                            "id"              -> datas.id.toString, 
+                            "email"           -> datas.email, 
+                            Security.username -> datas.name,
+                            "privilege"       -> datas.privilege.toString
                     )
                 }
         )

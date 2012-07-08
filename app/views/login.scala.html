@@ -10,6 +10,12 @@
     		@flash.get("registration")
     	</div>
     }
+    
+    @if(flash.get("unauthorized").exists(_ => true)){
+    	<div class="alert alert-warning">
+    		@flash.get("unauthorized")
+    	</div>
+    }
 
 	<div class="span5">
 		<a href="#" class="thumbnail">
