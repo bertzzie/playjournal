@@ -10,4 +10,8 @@ object Post extends Controller with Security{
         val id = request.session.get("id").getOrElse("0")
         Ok(views.html.post.index( models.Post.findByUser(id.toLong) ))
     }
+    
+    def newPost = withAuth { user => implicit request =>
+        Ok(views.html.post.newPost(request))
+    }
 }
