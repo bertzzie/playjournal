@@ -4,7 +4,7 @@ import play.api._
 import play.api.mvc._
 
 trait Security {
-    def username(request: RequestHeader) = request.session.get(Security.username)
+    def username(request: RequestHeader) = SecurityHelper.getUsername(request)
     
     def onUnauthorized(request: RequestHeader) = Results.Redirect(routes.Authentication.login).flashing("unauthorized" -> "You need to authenticate yourself to access the page.")
     

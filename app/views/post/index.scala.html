@@ -1,0 +1,33 @@
+@(posts: Seq[Post])(implicit request: play.api.mvc.RequestHeader)
+
+@main("Your Posts", "post"){
+<div class="row">
+	<div class="span8 offset2">
+	<table class="table table-stripped">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Content</th>
+				<th>Last Update</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			@if(posts.isEmpty){
+				<tr>
+					<td colspan="3" class="muted" style="text-align:center">You don't have any post yet. Create a new post to see list of posts you made.</td>
+				</tr>
+			} else {
+				@for(p <- posts){
+					<tr>
+						<td>@p.title</td>
+						<td>@p.content</td>
+						<td>@p.lastUpdate</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+	</div>
+</div>
+}
