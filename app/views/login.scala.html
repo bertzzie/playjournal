@@ -2,7 +2,7 @@
 
 @import helper._
 
-@implicitField = @{ FieldConstructor(bootstrapInput.f) }
+@implicitField = @{FieldConstructor(bootstrapInput.f)}
 
 @main("Login", "login") {
     @if(flash.get("registration").exists(_ => true)){
