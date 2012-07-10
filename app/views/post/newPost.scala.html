@@ -1,4 +1,4 @@
-@(implicit request: play.api.mvc.RequestHeader)
+@(postForm: Form[(String, String)])(implicit request: play.api.mvc.RequestHeader)
 
 @stylesheets = {
 	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/post.css")">
@@ -10,16 +10,44 @@
 	<script type="text/javascript" src="@routes.Assets.at("pagedown/Markdown.Editor.js")"></script>
 }
 
+@import helper._
+
+@implicitField = @{FieldConstructor(bootstrapInput.f)}
+
 @main("New Post", "post", javascripts, stylesheets){
-	NEW POST
+	@helper.form(routes.Post.newPost){
+	<fieldset>
+		<legend>New Post</legend>
+
+		@if(postForm.hasGlobalErrors){
+			<div class="alert alert-error">
+				@postForm.globalErrors.map { error =>
+					<strong>Error: </strong> @error.message <br>
+				}
+			</div>
+		}
+
+		@inputText(postForm("title"))
 	
-	<div class="wmd-panel">
-		<div id="wmd-button-bar"></div>
-		<textarea class="wmd-input" id="wmd-input"></textarea>
-	</div>
-	
-	<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
-	
+		<div class="control-group">
+			<div class="controls">
+				<label for="content">content</label>
+				<div class="wmd-panel">
+					<div id="wmd-button-bar"></div>
+					<textarea class="wmd-input" id="wmd-input" name="content"></textarea>
+				</div>
+			
+				<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+			</div>
+		</div>
+
+		<div style="clear: both"></div>
+
+		<div class="form-actions centered">
+			<button type="submit" class="btn btn-primary btn-large">Create new post</button>
+		</div>
+	</fieldset>
+	}
 	
 	<script type="text/javascript">
 		(function(){

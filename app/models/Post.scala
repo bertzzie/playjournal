@@ -32,4 +32,15 @@ object Post {
             	.as(simple *)
         }
     }
+
+    def create(title: String, content: String, userId: Long) = {
+        DB.withConnection { implicit connection => 
+            SQL("INSERT INTO post (title, content, created, writer) VALUES ({title}, {content}, NOW(), {writer})")
+                .on(
+                    'title -> title,
+                    'content -> content,
+                    'writer -> userId
+                ).executeUpdate()
+        }
+    }
 }
