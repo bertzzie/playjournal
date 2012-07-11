@@ -13,6 +13,7 @@
 @import helper._
 
 @implicitField = @{FieldConstructor(bootstrapInput.f)}
+@pagedown = @{FieldConstructor(pagedownBootstrapTextarea.f)}
 
 @main("New Post", "post", javascripts, stylesheets){
 	@helper.form(routes.Post.saveNewPost){
@@ -28,18 +29,8 @@
 		}
 
 		@inputText(postForm("title"))
-	
-		<div class="control-group">
-			<div class="controls">
-				<label for="content">content</label>
-				<div class="wmd-panel">
-					<div id="wmd-button-bar"></div>
-					<textarea class="wmd-input" id="wmd-input" name="content"></textarea>
-				</div>
-			
-				<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
-			</div>
-		</div>
+		
+		@textarea(postForm("content"))(handler = pagedown, implicitly[Lang])
 
 		<div style="clear: both"></div>
 

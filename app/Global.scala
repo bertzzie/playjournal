@@ -12,8 +12,8 @@ object Global extends GlobalSettings {
 
         if (Users.findAll.isEmpty) {
             Seq(
-                Users("bertzzie@gmail.com", "bertzzie", "Bertzzie", Privilege.admin),
-                Users("bertzzie@mikroskil.ac.id", "bertzzie-mikro", "Bertzzie Mikro", Privilege.standard)) foreach Users.create
+                Users("admin@playjournal.com", "admin", "Admin", Privilege.admin),
+                Users("user@playjournal.com", "user", "User", Privilege.standard)) foreach Users.create
         }
     }
 }
