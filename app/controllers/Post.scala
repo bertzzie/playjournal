@@ -31,8 +31,8 @@ object Post extends Controller with Security {
                 formWithErrors => BadRequest(views.html.post.newPost(formWithErrors)),
                 newPost => {
                     try {
-                        val userId = request.session.get("id").getOrElse("0")
-                        models.Post.create(newPost._1, newPost._2, userId.toLong)
+                        val userId = request.session.get("id").getOrElse("0").toLong
+                        models.Post.create(newPost._1, newPost._2, userId)
                         Redirect(routes.Application.index)
                     } catch {
                         case e => BadRequest(views.html.post.newPost(postForm.fill(newPost)))
