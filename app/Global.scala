@@ -10,6 +10,9 @@ object Global extends GlobalSettings {
                 Privilege(2, "standard")) foreach Privilege.create
         }
 
+        /*
+            Kalau tidak ada user sama sekali, buat user admin.
+        */
         if (Users.findAll.isEmpty) {
             Seq(
                 Users("admin@playjournal.com", "admin", "Admin", Privilege.admin),
